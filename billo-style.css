@@ -1,0 +1,218 @@
+/* Billo-Style Comparison Table */
+:root {
+    --billo-yellow: #fde047;
+    /* Bright Yellow */
+    --billo-yellow-dark: #facc15;
+    /* Functionally Darker Yellow */
+    --billo-text: #111827;
+    --billo-gray-bg: #f3f4f6;
+    --billo-border-radius: 20px;
+}
+
+.billo-comparison-section {
+    padding: 6rem 0;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.billo-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.billo-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.billo-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.billo-header p {
+    color: #6b7280;
+    font-size: 1.125rem;
+}
+
+/* Grid Layout */
+.billo-grid {
+    display: grid;
+    /* 4 Columns: Label | Nex (Winner) | Agency | In-house */
+    grid-template-columns: 1.5fr 1.2fr 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+}
+
+/* Headers */
+.billo-col-header {
+    text-align: center;
+    font-weight: 700;
+    padding: 1rem;
+    color: var(--billo-text);
+}
+
+.billo-col-header.winner {
+    font-size: 1.5rem;
+    font-weight: 800;
+    padding-bottom: 2rem;
+    /* Space for the card top */
+}
+
+/* Rows */
+.billo-row {
+    display: contents;
+    /* Allows children to participate in grid */
+}
+
+.billo-cell {
+    padding: 1.25rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: #4b5563;
+}
+
+.billo-cell.label {
+    justify-content: flex-start;
+    padding-left: 2rem;
+    background: var(--billo-gray-bg);
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    color: var(--billo-text);
+    font-weight: 600;
+}
+
+/* Competitor Backgrounds (Right side of row) */
+.billo-cell.competitor {
+    background: var(--billo-gray-bg);
+}
+
+.billo-cell.competitor:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* Winner Column Overlay */
+/* This is a visual overlay for the column background */
+.billo-winner-card {
+    grid-column: 2;
+    grid-row: 2 / -1;
+    /* Start from header row? No, distinct header. Start from first data row? No. */
+    /* Let's cover the entire column including header and button space */
+    grid-row: 1 / span 10;
+    /* Adjust depending on row count */
+
+    background: linear-gradient(180deg, #fef9c3 0%, #fde047 100%);
+    border-radius: var(--billo-border-radius);
+    box-shadow: 0 20px 40px rgba(250, 204, 21, 0.2);
+    z-index: 10;
+    position: relative;
+    top: -20px;
+    bottom: -20px;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.billo-winner-cell {
+    grid-column: 2;
+    z-index: 20;
+    /* Above the card background */
+    text-align: center;
+    font-weight: 700;
+    color: var(--billo-text);
+    /* No background here, strict transparency */
+    padding: 1.25rem 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.billo-winner-check {
+    width: 24px;
+    height: 24px;
+    background: #fff;
+    border-radius: 50%;
+    color: var(--billo-yellow-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .billo-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .billo-winner-card {
+        display: none;
+        /* Disable desktop overlay on mobile */
+    }
+
+    /* Mobile Card Style (Reuse concept) */
+    .billo-row {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+    }
+
+    .billo-cell.label {
+        background: #f9fafb;
+        border-radius: 0;
+        padding: 1rem;
+        font-size: 1.125rem;
+    }
+
+    .billo-winner-cell {
+        background: var(--billo-yellow);
+        order: -1;
+        /* Top */
+        padding: 1rem;
+    }
+
+    .billo-cell {
+        padding: 0.75rem;
+        border-bottom: 1px solid #f3f4f6;
+    }
+}
+
+/* Winner CTA Button */
+.billo-cta-container {
+    grid-column: 2;
+    z-index: 20;
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+
+.billo-btn {
+    background: #000;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+
+.billo-btn:hover {
+    transform: scale(1.05);
+    background: #1f2937;
+}

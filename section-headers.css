@@ -1,0 +1,71 @@
+/* ===================================
+   UNIFIED SECTION HEADERS
+   =================================== */
+
+/* Container for centered headers */
+.section-header-united {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 10;
+}
+
+/* Pill-shaped Badge */
+.header-badge-united {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 1px solid #fbbf24;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #92400e;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(251, 191, 36, 0.1), 0 2px 4px -1px rgba(251, 191, 36, 0.06);
+}
+
+.header-badge-united svg {
+    width: 16px;
+    height: 16px;
+    stroke: #92400e;
+    /* Fallback */
+    stroke-width: 2;
+}
+
+/* Main Title */
+.header-title-united {
+    font-family: var(--font-heading, 'Outfit', sans-serif);
+    font-size: 3rem;
+    /* 48px */
+    font-weight: 800;
+    /* Extra Bold */
+    line-height: 1.1;
+    color: #111;
+    /* Almost Black */
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+/* Golden Gradient Text Highlight */
+.highlight-united {
+    background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
+    /* Finds clip fix */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .header-title-united {
+        font-size: 2.25rem;
+        /* 36px on mobile */
+    }
+
+    .section-header-united {
+        margin-bottom: 3rem;
+    }
+}

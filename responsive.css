@@ -1,0 +1,395 @@
+/* Mobile Responsiveness */
+
+/* 1. Typography Scaling */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+        /* Slightly smaller base size */
+    }
+
+    h1.hero-title {
+        font-size: 2.5rem !important;
+        /* ~20% smaller than 4.5rem (desktop is usually large) */
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: 2rem !important;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem !important;
+        padding: 0 1rem;
+    }
+}
+
+/* 2. Grid Stacking */
+@media (max-width: 768px) {
+
+    .features-grid,
+    .why-grid,
+    .bento-grid,
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+
+    .bento-grid {
+        display: flex;
+        /* Switch to flex column/stack for bento to avoid row-span issues */
+        flex-direction: column;
+    }
+
+    .feature-card,
+    .why-card,
+    .bento-card {
+        width: 100%;
+    }
+}
+
+/* 3. Buttons Full Width */
+@media (max-width: 768px) {
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem;
+    }
+
+    .hero-actions .btn,
+    .banner-cta .btn {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* 4. Navbar & Hamburger Menu */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 101;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-black);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Menu Container */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.mobile-menu-overlay.active {
+    transform: translateX(0);
+}
+
+.mobile-menu-overlay a {
+    font-size: 1.5rem;
+    color: var(--color-black);
+    font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+
+    .nav-links,
+    .nav-actions {
+        display: none;
+        /* Hide default nav items */
+    }
+
+    .mobile-menu-btn {
+        display: block;
+        /* Show hamburger */
+    }
+}
+
+/* 5. Overflow Fixes */
+@media (max-width: 768px) {
+
+    body,
+    html {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    .container {
+        padding: 0 1.5rem;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Comparison Table Scroll */
+    .comparison-section .container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .comp-table {
+        min-width: 600px;
+        /* Ensure table triggers scroll */
+    }
+
+    /* Fix Hero Animation Overflow */
+    .hero {
+        overflow: hidden;
+        /* Ensure stickers don't cause scroll */
+    }
+
+    .hero-visual {
+        transform: none;
+        /* Remove perspective on mobile if it causes issues, or adjust */
+        perspective: none;
+        max-width: 100vw;
+    }
+
+    .hero-ugc-showcase {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1.5rem;
+        padding: 0 0 2rem 0;
+        /* Vertical padding only */
+        padding-inline: calc(50% - 30vw);
+        /* Center the 60vw card: 50% - 30vw */
+        width: 100%;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        border-radius: 0;
+        /* Hide scrollbar */
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .hero-ugc-showcase::-webkit-scrollbar {
+        display: none;
+    }
+
+    .hero-video-card,
+    .hero-video-card.small,
+    .hero-video-card.main {
+        flex: 0 0 auto;
+        width: 60vw;
+        /* 60% of viewport -> leaves 20% on each side for a bigger peek */
+        max-width: 260px;
+        /* Cap size */
+        height: auto;
+        aspect-ratio: 9/16;
+        scroll-snap-align: center;
+        margin: 0;
+
+        /* Visual Style from Screenshot */
+        border: 4px solid white;
+        border-radius: 32px;
+        /* Very rounded */
+        box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+
+        /* Reset transformations */
+        transform: scale(0.95);
+        opacity: 0.8;
+        filter: none;
+        order: unset;
+        z-index: 1;
+        transition: all 0.3s ease;
+        position: relative;
+        background: #000;
+    }
+
+    /* Active state simulation (center item usually) */
+    /* Mobile: All cards uniform size/opacity to create reliable click targets */
+    .hero-video-card.main,
+    .hero-video-card.rotate-left,
+    .hero-video-card.rotate-right {
+        transform: scale(1) !important;
+        opacity: 1 !important;
+        z-index: 2;
+        border-color: white;
+    }
+
+    /* Prevent video element from blocking clicks */
+    .hero-video-card video {
+        pointer-events: none;
+    }
+
+    /* Ensure play button overlay also passes clicks through or is handled */
+    .hero-video-card::before {
+        pointer-events: none;
+    }
+
+    /* Overlay Styling to match Glass Pill in Screenshot */
+    .hero-video-overlay {
+        pointer-events: none;
+        /* Allow clicks to pass through to container */
+        background: rgba(255, 255, 255, 0.75);
+        /* Milky glass */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        bottom: 1.5rem;
+        left: 1.5rem;
+        right: 1.5rem;
+        width: auto;
+        border-radius: 20px;
+        padding: 0.75rem 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        color: #111;
+        /* Dark text */
+        border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    /* Adjust Pill Text Colors */
+    .hero-user-pill {
+        pointer-events: none;
+        /* Pass clicks through */
+        color: #111;
+        font-weight: 700;
+        font-size: 0.9rem;
+        gap: 0.75rem;
+    }
+
+    .hero-user-pill img {
+        pointer-events: none;
+        width: 36px;
+        height: 36px;
+        border: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Hide the old stat pill for this specific new layout if needed, or style it */
+    .hero-stat-pill {
+        pointer-events: none;
+        /* Pass clicks through */
+        background: transparent;
+        color: #333;
+        padding: 0;
+        font-weight: 500;
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    /* Add Star Rating (Pseudo-element hack solely for CSS visual demo) */
+    .hero-user-pill::after {
+        content: "★★★★★";
+        color: #fca5a5;
+        /* Reddish stars? Or Gold? Screenshot has 4.9 star */
+        font-size: 0.6rem;
+        display: block;
+        margin-top: 2px;
+        color: #6b7280;
+        /* Gray star placeholder */
+        letter-spacing: 1px;
+    }
+
+    .hero-user-pill,
+    .hero-stat-pill {
+        pointer-events: none;
+    }
+
+    .hero-stat-pill.highlight {
+        background: var(--color-yellow-primary);
+        color: var(--color-black);
+    }
+
+    /* Video Mute Button */
+    .video-mute-btn {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .video-mute-btn:hover {
+        background: white;
+        transform: scale(1.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .video-mute-btn svg {
+        width: 20px;
+        height: 20px;
+        color: #111;
+    }
+
+    .video-mute-btn.muted .sound-on {
+        display: none;
+    }
+
+    .video-mute-btn.muted .sound-off {
+        display: block !important;
+    }
+
+    .hero-play-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    /* Play Button Overlay (Centered) */
+    .hero-video-card::before {
+        content: "▶";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 56px;
+        height: 56px;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(4px);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        z-index: 10;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        pointer-events: none;
+    }
+}

@@ -1,0 +1,160 @@
+/* Spotlight Card Comparison */
+:root {
+    --spot-yellow: #FAEC03;
+    /* Brand Yellow */
+    --spot-black: #0D1117;
+    --spot-gray: #F3F4F6;
+    --spot-text-muted: #6B7280;
+}
+
+.spotlight-section {
+    padding: 6rem 0;
+    background: var(--bg-warm-gradient);
+    /* or #FAFAFA */
+}
+
+.spotlight-cont {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.spotlight-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.spotlight-header h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--spot-black);
+    margin-bottom: 1rem;
+}
+
+/* Card Container */
+.spotlight-cards {
+    display: flex;
+    align-items: center;
+    /* Center vertically to allow scaling */
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    /* responsive */
+}
+
+/* Base Card Style */
+.compare-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    width: 300px;
+    text-align: center;
+    position: relative;
+    border: 1px solid #E5E7EB;
+    transition: transform 0.3s ease;
+}
+
+/* Header inside card */
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--spot-black);
+}
+
+/* Feature List */
+.card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card-features li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 1rem;
+    color: var(--spot-text-muted);
+}
+
+.feature-val {
+    font-weight: 600;
+    color: var(--spot-black);
+    font-size: 1.125rem;
+}
+
+.feature-name {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #9CA3AF;
+}
+
+/* NEX STUDIO CARD (The Spotlight) */
+.compare-card.nex-spotlight {
+    background: var(--spot-black);
+    color: #fff;
+    border: none;
+    transform: scale(1.1);
+    /* Make it bigger */
+    z-index: 10;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    padding: 3.5rem 2.5rem;
+    /* More padding */
+    width: 340px;
+}
+
+.nex-spotlight .card-title {
+    color: var(--spot-yellow);
+    font-size: 1.75rem;
+    margin-bottom: 3rem;
+}
+
+.nex-spotlight .feature-val {
+    color: #fff;
+    font-size: 1.5rem;
+    /* Bigger text */
+}
+
+.nex-spotlight .feature-name {
+    color: #6B7280;
+    /* Muted gray on black */
+}
+
+/* Highlight badge */
+.best-choice-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--spot-yellow);
+    color: var(--spot-black);
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 900px) {
+    .spotlight-cards {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .compare-card {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .compare-card.nex-spotlight {
+        transform: scale(1);
+        order: -1;
+        /* First on mobile */
+        width: 100%;
+    }
+}

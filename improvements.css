@@ -1,0 +1,288 @@
+/* ===================================
+   IMPROVEMENTS: Sticky Nav, Back to Top, Auto-play, Loading States
+   =================================== */
+
+/* Sticky Navigation */
+.navbar.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: var(--color-black);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), 0 0 20px rgba(251, 191, 36, 0.4);
+    background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
+}
+
+.back-to-top svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Auto-play Video Hover Effect */
+.hero-video-card video {
+    transition: transform 0.3s ease;
+}
+
+.hero-video-card:hover video {
+    transform: scale(1.05);
+}
+
+/* Loading Skeleton */
+.skeleton {
+    background: linear-gradient(90deg,
+            #f0f0f0 25%,
+            #e0e0e0 50%,
+            #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.skeleton-card {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 2rem;
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg,
+            var(--color-yellow-primary) 0%,
+            var(--color-yellow-dark) 100%);
+    z-index: 1001;
+    transform-origin: left;
+    transition: transform 0.1s ease;
+}
+
+/* Social Share Buttons */
+.share-buttons {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.share-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e5e7eb;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.share-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.share-btn.facebook {
+    border-color: #1877f2;
+}
+
+.share-btn.facebook:hover {
+    background: #1877f2;
+    color: white;
+}
+
+.share-btn.twitter {
+    border-color: #1da1f2;
+}
+
+.share-btn.twitter:hover {
+    background: #1da1f2;
+    color: white;
+}
+
+.share-btn.linkedin {
+    border-color: #0a66c2;
+}
+
+.share-btn.linkedin:hover {
+    background: #0a66c2;
+    color: white;
+}
+
+.share-btn.copy {
+    border-color: #10b981;
+}
+
+.share-btn.copy:hover {
+    background: #10b981;
+    color: white;
+}
+
+/* Sticky CTA Button */
+.sticky-cta {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.sticky-cta.visible {
+    opacity: 1;
+    pointer-events: all;
+    animation: bounceIn 0.5s ease;
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: translateX(-50%) scale(0.8);
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.05);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+.sticky-cta .btn {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 20px rgba(251, 191, 36, 0.3);
+}
+
+/* Lazy Load Fade In */
+.lazy-load {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.lazy-load.loaded {
+    opacity: 1;
+}
+
+/* Enhanced Hover States */
+.feature-card,
+.why-card,
+.bento-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feature-card:hover,
+.why-card:hover,
+.bento-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Tooltip */
+.tooltip {
+    position: relative;
+}
+
+.tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    font-size: 0.875rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.tooltip:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 45px;
+        height: 45px;
+    }
+
+    .sticky-cta {
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        transform: translateX(0);
+    }
+
+    .sticky-cta.visible {
+        transform: translateX(0);
+    }
+
+    .sticky-cta .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

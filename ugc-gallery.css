@@ -1,0 +1,423 @@
+/* ===================================
+   UGC VIDEO GALLERY - 3D CAROUSEL
+   =================================== */
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.ugc-videos-grid {
+    position: relative;
+    height: 600px;
+    flex: 1;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 2000px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Navigation Arrows */
+.carousel-nav {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid #e5e7eb;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.carousel-nav:hover {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    border-color: #fbbf24;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
+}
+
+.carousel-nav:active {
+    transform: scale(0.95);
+}
+
+.carousel-nav svg {
+    width: 24px;
+    height: 24px;
+}
+
+.ugc-video-card {
+    position: absolute;
+    width: 280px;
+    height: 480px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #f3f4f6;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* Positioning for 5 videos in carousel */
+/* Center (index 0) */
+.ugc-video-card:nth-child(1) {
+    z-index: 5;
+    transform: translateX(0) scale(1);
+    opacity: 1;
+}
+
+/* Left close (index 1) */
+.ugc-video-card:nth-child(2) {
+    z-index: 4;
+    transform: translateX(-320px) scale(0.85) rotateY(15deg);
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+/* Right close (index 2) */
+.ugc-video-card:nth-child(3) {
+    z-index: 4;
+    transform: translateX(320px) scale(0.85) rotateY(-15deg);
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+/* Left far (index 3) */
+.ugc-video-card:nth-child(4) {
+    z-index: 3;
+    transform: translateX(-600px) scale(0.7) rotateY(25deg);
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+/* Right far (index 4) */
+.ugc-video-card:nth-child(5) {
+    z-index: 3;
+    transform: translateX(600px) scale(0.7) rotateY(-25deg);
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+/* Hover effect - lift center card */
+.ugc-video-card:nth-child(1):hover {
+    transform: translateX(0) scale(1.05) translateY(-10px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+}
+
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.video-thumbnail img,
+.video-thumbnail .video-element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.ugc-video-card:hover .video-thumbnail img,
+.ugc-video-card:hover .video-thumbnail .video-element {
+    transform: scale(1.05);
+}
+
+/* Large Play Button (Center) */
+.video-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 3;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.video-play-btn svg {
+    margin-left: 4px;
+    color: #111;
+}
+
+.video-play-btn:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.ugc-video-card:nth-child(1) .video-play-btn {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Hide play button on non-center cards */
+.ugc-video-card:not(:nth-child(1)) .video-play-btn {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Volume Button (Top Right) */
+.video-volume-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 3;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.video-volume-btn svg {
+    color: #111;
+    stroke: #111;
+}
+
+.video-volume-btn:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Hide volume on non-center cards */
+.ugc-video-card:not(:nth-child(1)) .video-volume-btn {
+    display: none;
+}
+
+/* Video Badge */
+.video-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 20px;
+    z-index: 2;
+}
+
+/* Category Pills */
+.category-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-pill:hover {
+    border-color: #fbbf24;
+    color: #111;
+    transform: translateY(-2px);
+}
+
+.category-pill.active {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    border-color: #fbbf24;
+    color: white;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+}
+
+.category-icon {
+    font-size: 1.1rem;
+}
+
+/* Category Tabs Container */
+.category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+
+/* Category Switch Animations */
+@keyframes fadeOutLeft {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Apply animations to cards */
+.ugc-video-card.fade-out {
+    animation: fadeOutLeft 0.3s ease-out forwards;
+}
+
+.ugc-video-card.fade-in {
+    animation: fadeInRight 0.4s ease-out forwards;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .ugc-videos-grid {
+        height: 500px;
+    }
+
+    .ugc-video-card {
+        width: 240px;
+        height: 400px;
+    }
+
+    .ugc-video-card:nth-child(2) {
+        transform: translateX(-280px) scale(0.85) rotateY(15deg);
+    }
+
+    .ugc-video-card:nth-child(3) {
+        transform: translateX(280px) scale(0.85) rotateY(-15deg);
+    }
+
+    .ugc-video-card:nth-child(4) {
+        transform: translateX(-520px) scale(0.7) rotateY(25deg);
+    }
+
+    .ugc-video-card:nth-child(5) {
+        transform: translateX(520px) scale(0.7) rotateY(-25deg);
+    }
+}
+
+@media (max-width: 968px) {
+    .ugc-videos-grid {
+        height: 450px;
+    }
+
+    .ugc-video-card {
+        width: 220px;
+        height: 360px;
+    }
+
+    /* Hide far videos on tablet */
+    .ugc-video-card:nth-child(4),
+    .ugc-video-card:nth-child(5) {
+        display: none;
+    }
+
+    .ugc-video-card:nth-child(2) {
+        transform: translateX(-250px) scale(0.85) rotateY(15deg);
+    }
+
+    .ugc-video-card:nth-child(3) {
+        transform: translateX(250px) scale(0.85) rotateY(-15deg);
+    }
+}
+
+@media (max-width: 640px) {
+    .ugc-videos-grid {
+        height: 400px;
+    }
+
+    .ugc-video-card {
+        width: 200px;
+        height: 340px;
+    }
+
+    .ugc-video-card:nth-child(2) {
+        transform: translateX(-220px) scale(0.8) rotateY(20deg);
+    }
+
+    .ugc-video-card:nth-child(3) {
+        transform: translateX(220px) scale(0.8) rotateY(-20deg);
+    }
+
+    .category-pill {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    .category-icon {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ugc-videos-grid {
+        height: 350px;
+    }
+
+    .ugc-video-card {
+        width: 180px;
+        height: 300px;
+    }
+
+    /* Show only center video on mobile */
+    .ugc-video-card:nth-child(n+2) {
+        opacity: 0.3;
+    }
+
+    .category-tabs {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .category-pill {
+        justify-content: center;
+    }
+}
+
+/* Add background to UGC Section */
+.ugc-section {
+    background: var(--bg-warm-gradient);
+    padding: 6rem 0;
+}

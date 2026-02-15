@@ -30,12 +30,17 @@
     --radius-lg: 32px;
     /* Screenshot has very rounded corners */
     --radius-md: 12px;
+    --bg-warm-gradient: linear-gradient(180deg, #ffffff 0%, #fefce8 50%, #ffffff 100%);
 }
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -114,8 +119,11 @@ a {
 
 .btn-primary:hover {
     background-color: #262626;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    /* More pronounced lift */
+    box-shadow: 0 15px 30px -5px rgba(250, 204, 21, 0.5);
+    /* Stronger Yellow glow */
+    border-color: #262626;
 }
 
 /* Outline Button (White with Black border, like 'Book a demo') */
@@ -197,7 +205,8 @@ a {
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 3rem;
+    /* Increased spacing */
 }
 
 /* Hero Section */
@@ -345,7 +354,10 @@ a {
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: var(--color-text-secondary);
+    color: var(--color-text-primary);
+    /* Darker for accessibility */
+    font-weight: 500;
+    /* Increased weight */
     max-width: 700px;
     margin: 0 auto 3rem;
     line-height: 1.6;
@@ -473,7 +485,7 @@ a {
 /* Features Clean Grid */
 .features {
     padding: 6rem 0;
-    background: var(--color-bg-primary);
+    background: var(--bg-warm-gradient);
     /* Keep white */
 }
 
@@ -539,7 +551,10 @@ a {
     padding: 3rem 0;
     overflow: hidden;
     position: relative;
-    background: white;
+    background: var(--bg-warm-gradient);
+    /* Edge Fade Mask */
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
 .logos-track {
@@ -550,12 +565,62 @@ a {
 }
 
 .logo-item {
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: #d1d5db;
-    /* Light Gray Text Logo */
-    white-space: nowrap;
+    color: #9ca3af;
+    /* Light Gray */
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.logo-item svg {
+    height: 32px;
+    width: auto;
+    max-width: 120px;
+    fill: currentColor;
+}
+
+.logo-item:hover {
+    transform: scale(1.1);
+    filter: none;
+}
+
+/* Brand Colors on Hover */
+.logo-item:nth-child(1) {
+    color: #96bf0d;
+}
+
+/* HelloFresh */
+.logo-item:nth-child(2) {
+    color: #ff5200;
+}
+
+/* JBL */
+.logo-item:nth-child(3) {
+    color: #bca06d;
+}
+
+/* L'Oreal */
+.logo-item:nth-child(4) {
+    color: #0b5ed7;
+}
+
+/* Philips */
+.logo-item:nth-child(5) {
+    color: #007bff;
+}
+
+/* Nestle */
+.logo-item:nth-child(6) {
+    color: #00c4cc;
+}
+
+/* Canva */
+.logo-item:nth-child(7) {
+    color: #000000;
+}
+
+/* Zara */
 
 @keyframes scroll {
     0% {
@@ -729,10 +794,21 @@ a {
 
 .comp-table th.highlight-col,
 .comp-table td.highlight-col {
-    background: var(--color-yellow-light);
+    background: #fffceb;
+    /* Lighter yellow */
     /* Highlight Nex Studio column */
     text-align: center;
     font-weight: 700;
+    border-left: 2px solid var(--color-yellow-primary);
+    border-right: 2px solid var(--color-yellow-primary);
+}
+
+.comp-table th.highlight-col {
+    border-top: 2px solid var(--color-yellow-primary);
+}
+
+.comp-table tr:last-child td.highlight-col {
+    border-bottom: 2px solid var(--color-yellow-primary);
 }
 
 .comp-table th:first-child {
@@ -1018,4 +1094,82 @@ a {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/* 3D Carousel Styles */
+.hero-ugc-showcase {
+    position: relative;
+    display: flex;
+    /* Fallback */
+    justify-content: center;
+    align-items: center;
+    height: 550px;
+    /* Ensure enough height */
+    perspective: 1000px;
+    padding-top: 2rem;
+}
+
+/* Reset existing card styles to base */
+.hero-video-card.carousel-card {
+    position: absolute;
+    width: 260px;
+    height: 460px;
+    border-radius: 24px;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    background: #000;
+    overflow: hidden;
+    border: none;
+    transform-origin: center bottom;
+}
+
+/* Center Card (Active) */
+.hero-video-card.center {
+    transform: translateX(0) scale(1) translateZ(200px);
+    z-index: 20;
+    opacity: 1;
+    border: 4px solid var(--color-yellow-primary);
+    box-shadow: 0 30px 60px -10px rgba(250, 204, 21, 0.3);
+}
+
+/* Left Card */
+.hero-video-card.left {
+    transform: translateX(-110%) scale(0.85) translateZ(-100px) rotateY(15deg);
+    z-index: 10;
+    opacity: 0.6;
+    filter: grayscale(40%);
+}
+
+.hero-video-card.left:hover {
+    transform: translateX(-110%) scale(0.9) translateZ(-50px) rotateY(10deg);
+    opacity: 0.8;
+    filter: grayscale(0%);
+    z-index: 15;
+}
+
+/* Right Card */
+.hero-video-card.right {
+    transform: translateX(110%) scale(0.85) translateZ(-100px) rotateY(-15deg);
+    z-index: 10;
+    opacity: 0.6;
+    filter: grayscale(40%);
+}
+
+.hero-video-card.right:hover {
+    transform: translateX(110%) scale(0.9) translateZ(-50px) rotateY(-10deg);
+    opacity: 0.8;
+    filter: grayscale(0%);
+    z-index: 15;
+}
+
+/* Text Overlap Fix */
+.hero-title {
+    margin-top: 3rem;
+    position: relative;
+    z-index: 5;
+}
+
+.brand-sticker {
+    top: -45px;
 }
